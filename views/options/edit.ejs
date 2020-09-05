@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Option</title>
+</head>
+<body>
+     <br><br><h2>Edit options</h2>
+     <form action="/options/edit/<%= option.id %>?_method=PUT" method="POST">
+          <label for="weekday">weekday</label>
+        <select name="weekday">
+            <option value="MON">MON</option>
+            <option value="TUE">TUE</option>
+            <option value="WED">WED</option>
+            <option value="THU">THU</option>
+            <option value="FRI">FRI</option>
+        </select>
+          <label for="date">Date</label>
+          <input type="datetime-local" name="date">
+         <label for="optionsList">optionsList</label>
+          <input type="text" name="optionsList">
+        <input type="submit" value="Update Option">
+      </form>
+</body>
+</html>

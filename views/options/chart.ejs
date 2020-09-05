@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src ="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <title>Option List</title>
+</head>
+<body>
+    <a href="/">HOME</a>
+    <a href="/options/new">CREATE OPTIONS</a>
+    <a href="/options">OPTIONS LIST</a>
+    <a href="/options/show">Choice List</a>
+
+  <h1>All the choices selected</h1>
+    <table>
+    <thead>
+      <tr>
+        <th>Weekday</th>
+        <th>Date</th>
+        <th>Option list</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <% options.forEach(function(option) { %>
+       <tr>
+            <td><%= option.weekday %></td>
+         <td><%= option.date.toLocaleString() %></td>
+          <td><%= option.optionsList %></td>
+        </tr>
+        <% }); %>
+    </tbody>
+
+  </table>
+
+    <canvas id="myChart" width="100" height="100"></canvas>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d')
+ <%let optionsDict = {}; %>
+  <%  options.forEach(function (option) { %>
+       <% if (!optionsDict[option.weekday]) { %>
+        <%    optionsDict[option.weekday] = []; %>
+         <%   optionsDict[option.weekday].push(option.optionsList) %>
+    <%    }else { %>
+        <%    optionsDict[option.weekday].push(option.optionsList);} %>
+<%    }); %>
+        <% const chartData = []%>
+                <% const xlabels = Object.keys(optionsDict) %>
+       <% Object.keys(optionsDict).forEach(function (key) { %>
+       <%   chartData.push((optionsDict[key]).length)%>
+       <% }) %>
+       <% console.log(chartData) %>
+        <% console.log(Object.keys(optionsDict).length) %>
+
+ var myChart = new Chart(ctx, { type: 'bar', data: {
+         labels: <%- JSON.stringify(xlabels); %>,
+         datasets: [{
+           label: '# of Options',
+            data: <%- JSON.stringify(chartData); %>,
+             backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+             borderColor: ['rgba(255, 99, 132, 1)'],
+             borderWidth: 1
+         }]}})
+
+    </script>
+
+
+</body>
+</html>

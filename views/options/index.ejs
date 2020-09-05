@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <title>Option List</title>
+</head>
+<body>
+    <a href="/">HOME</a>
+    <a href="/options/new">CREATE OPTIONS</a>
+    <a href="/options/show">CHOICE LIST</a>
+    <a href="/options/chart">Chart</a>
+  <h1>Option List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Weekday</th>
+        <th>Date</th>
+        <th>Option list</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% options.forEach(function(option) { %>
+       <tr>
+           <td><a href="options/edit/<%=option.id%>"><%= option.weekday %></a></td>
+         <td><%= option.date.toLocaleString() %></td>
+          <td><%= option.optionsList %></td>
+          <td> 
+              <a href="options/<%=option.id%>">Pick Option</a>
+          </td>
+           <td>
+               <form action="options/<%= option.id %>?_method=DELETE" method="POST">
+                <button type="submit">X</button>
+                </form>
+          </td>
+        </tr>
+        <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
